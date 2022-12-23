@@ -1,0 +1,40 @@
+create table client(
+id SERIAL,
+name varchar(100) not null,
+cpf varchar(18) not null unique
+
+);
+
+create table product(
+id SERIAL,
+name varchar(100) not null,
+description varchar(100),
+price varchar(100),
+dateCreate date not null
+
+);
+
+create table ordered_item(
+id SERIAL,
+product varchar(100) not null,
+price varchar(100) not null,
+amount int not null,
+order varchar(100) not null
+
+);
+
+create table order(
+
+id SERIAL,
+client varchar(100) not null,
+totalPrice varchar(100) not null,
+
+
+);
+
+
+alter table ordered_item add constraint fk_ ordered_item_order foreign key (order) references order (id);
+
+
+
+
