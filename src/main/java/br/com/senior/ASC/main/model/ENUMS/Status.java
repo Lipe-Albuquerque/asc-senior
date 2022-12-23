@@ -1,0 +1,36 @@
+package br.com.senior.ASC.main.model.ENUMS;
+
+public enum Status {
+
+
+	OPEN(0, "ABERTO"), PROGRESS(1, "EM ANDAMENTO"), CLOSED(2, "FECHADO");
+
+	private Integer cod;
+	private String description;
+
+	private Status(Integer cod, String description) {
+		this.cod = cod;
+		this.description = description;
+	}
+
+	public Integer getCod() {
+		return cod;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public static Status toEnum(Integer cod) {
+		if (cod == null) {
+			return null;
+		}
+		for (Status x : Status.values()) {
+			if (cod.equals(x.getCod())) {
+				return x;
+			}
+		}
+		throw new IllegalArgumentException("STATUS INVALIDO! "+ cod);
+	}
+
+}
