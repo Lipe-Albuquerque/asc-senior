@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.senior.ASC.main.model.ENUMS.Sexo;
+
 @Entity
 public class Medico extends Usuario {
 	private String specialty;

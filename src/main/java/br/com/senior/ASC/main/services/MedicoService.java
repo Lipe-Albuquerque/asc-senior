@@ -23,33 +23,35 @@ public class MedicoService {
 	private UsuarioRepository userRepository;
 	@Autowired
 	private MedicoRepository repository;
-	
+
 	public Medico findById(Integer id) {
 		Optional<Medico> obj = repository.findById(id);
-		return obj.orElseThrow(()-> new ObjectNotFoundException("OBJETO NÃO ENCONTRADO! ID: " + id + ", tipo: " + Medico.class.getName()));
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"OBJETO NÃO ENCONTRADO! ID: " + id + ", tipo: " + Medico.class.getName()));
 	}
-	
+
 	public List<Medico> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Medico create(Medico Obj) {
-		if(findByCpf(Obj) != null) {
+		if (findByCpf(Obj) != null) {
 			throw new DataIntregatyViolationException("CPF já cadastrado na base de dados!");
 		}
-		Medico newObj = new Medico(null, Obj.getName(), Obj.getUsername(), Obj.getPassword(), Obj.getSex(), Obj.getCpf(),Obj.getEmail(),Obj.getPhone(),Obj.getStreet(),Obj.getNumberStreet(),
-				Obj.getZipCode(),Obj.getCity(),Obj.getState(),  Obj.getNameMother(),  Obj.getNameFather() , Obj.getCrm(),Obj.getSpecialty());
+		Medico newObj = new Medico(null, Obj.getName(), Obj.getUsername(), Obj.getPassword(), Obj.getSex(),
+				Obj.getCpf(), Obj.getEmail(), Obj.getPhone(), Obj.getStreet(), Obj.getNumberStreet(), Obj.getZipCode(),
+				Obj.getCity(), Obj.getState(), Obj.getNameMother(), Obj.getNameFather(), Obj.getCrm(),
+				Obj.getSpecialty());
 		return repository.save(newObj);
 	}
-	
-	
+
 	public Medico update(Integer id, @Valid Medico obj) {
 		Medico oldObj = findById(id);
-		
-		if(findByCpf(obj)!= null && findByCpf(obj).getId() != id) {
+
+		if (findByCpf(obj) != null && findByCpf(obj).getId() != id) {
 			throw new DataIntregatyViolationException("CPF já cadastrado na base de dados!");
 		}
-		
+
 		oldObj.setName(obj.getName());
 		oldObj.setUsername(obj.getUsername());
 		oldObj.setCpf(obj.getCpf());
@@ -67,33 +69,25 @@ public class MedicoService {
 		oldObj.setCrm(obj.getCrm());
 		return repository.save(oldObj);
 	}
-	
 
-	
 	public @ResponseBody boolean delete(@PathVariable("id") int id) {
 		Medico obj = findById(id);
-		if(obj.getList().size() > 0) {
+		if (obj.getList().size() > 0) {
 			throw new DataIntregatyViolationException("Medico possui Agendamentos, não pode ser DELETADO!!");
 
 		}
 		repository.deleteById(id);
 		return !repository.existsById(id);
 	}
-	
-    public List<Medico> findByEspecialidade(String especialidade){
-        return repository.findBySpecialtyEquals(especialidade);
-    }
 
-	
-	
-	private Usuario findByCpf(Medico obj) {
-		Usuario objNew = userRepository.findByCPF(obj.getCpf());
-		
-		if(objNew != null) {
-			return objNew;
-		}
-		return null;
+	public List<Medico> findByEspecialidade(String especialidade) {
+		return repository.findBySpecialtyEquals(especialidade);
 	}
-	
-	
+
+	private Usuario findByCpf(Medico obj) {
+
+		return userRepository.findByCPF(obj.getCpf());
+
+	}
+
 }

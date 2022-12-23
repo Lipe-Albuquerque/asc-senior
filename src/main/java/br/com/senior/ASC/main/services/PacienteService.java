@@ -46,7 +46,8 @@ public class PacienteService {
 		}
 		Paciente newObj = new Paciente(null, Obj.getName(), Obj.getUsername(), Obj.getPassword(), Obj.getSex(),
 				Obj.getCpf(), Obj.getEmail(), Obj.getPhone(), Obj.getStreet(), Obj.getNumberStreet(), Obj.getZipCode(),
-				Obj.getCity(), Obj.getState(),Obj.getNameFather(), Obj.getNameMother(), Obj.getSymptoms(), Obj.getList());
+				Obj.getCity(), Obj.getState(), Obj.getNameFather(), Obj.getNameMother(), Obj.getSymptoms(),
+				Obj.getList());
 		return repository.save(newObj);
 	}
 
@@ -85,12 +86,8 @@ public class PacienteService {
 	}
 
 	private Usuario findByCpf(Paciente obj) {
-		Usuario objNew = userRepository.findByCPF(obj.getCpf());
+		return userRepository.findByCPF(obj.getCpf());
 
-		if (objNew != null) {
-			return objNew;
-		}
-		return null;
 	}
 
 }

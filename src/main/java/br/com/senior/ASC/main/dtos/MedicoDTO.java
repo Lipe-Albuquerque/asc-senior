@@ -28,11 +28,11 @@ public class MedicoDTO{
 	
 	private String specialty;
 	
-	private List<Agendamento> list = new ArrayList<>();
+	//trazer dto
+//	private List<Agendamento> list = new ArrayList<>();
 
 	public MedicoDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public MedicoDTO(Medico obj) {
@@ -46,7 +46,7 @@ public class MedicoDTO{
 		this.state = obj.getState();
 		this.crm = obj.getCrm();	
 		this.specialty = obj.getSpecialty();
-		this.list = obj.getList();
+//		this.list = obj.getList();
 	}
 
 	public String getSpecialty() {
@@ -61,13 +61,13 @@ public class MedicoDTO{
 		return id;
 	}
 
-	public List<Agendamento> getList() {
-		return list;
-	}
-
-	public void setList(List<Agendamento> list) {
-		this.list = list;
-	}
+//	public List<Agendamento> getList() {
+//		return list;
+//	}
+//
+//	public void setList(List<Agendamento> list) {
+//		this.list = list;
+//	}
 
 	public void setId(Integer id) {
 		this.id = id;
